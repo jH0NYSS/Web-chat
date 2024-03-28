@@ -155,3 +155,6 @@ const fire_messagem = (event) => {
 
 loginForm.addEventListener("submit", handleLogin)
 chatForm.addEventListener("submit", sendMessage)
+menuButton.addEventListener("click", openMenu)
+menu_fire.addEventListener("click", fire_messagem)
+
