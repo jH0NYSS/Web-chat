@@ -107,7 +107,7 @@ const handleLogin = (event) => {
     login.style.display = "none"
     chat.style.display = "flex"
 
-    websocket = new WebSocket("ws://localhost:8080")
+    websocket = new WebSocket("wss://app-test-e9gg.onrender.com")
     websocket.onmessage = processMessage
 }
 
@@ -155,6 +155,3 @@ const fire_messagem = (event) => {
 
 loginForm.addEventListener("submit", handleLogin)
 chatForm.addEventListener("submit", sendMessage)
-menuButton.addEventListener("click", openMenu)
-menu_fire.addEventListener("click", fire_messagem)
-
