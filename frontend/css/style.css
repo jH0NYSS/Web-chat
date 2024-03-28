@@ -115,7 +115,7 @@ body {
     font-size: 1rem;
 }
 
-.chat__button {
+.chat__button, .button {
     border: none;
     background: none;
     color: #f2f2f2;
@@ -137,6 +137,7 @@ body {
 }
 
 .message--self {
+    word-wrap: break-word;      
     background-color: #f2f2f2;
     color: #121212;
     border-radius: 10px 10px 0 10px;
@@ -156,3 +157,37 @@ body {
     font-weight: 700;
     color: cadetblue;
 }
+
+.menu{
+    border-radius: 20px;
+    background-color: #272727;
+    position: fixed;
+    right: 20px;
+    bottom: 90px;
+    width: 200px;
+}
+
+.menu_buttons{
+    cursor: pointer;
+    border: #12121200;
+    background-color: #12121200;
+    margin-left: 20px;
+}
+
+#fire{
+    font-size: 35px;
+}
+
+.flame{
+    align-self: flex-end;
+    padding: 10px;
+    width: 100%;
+    max-width: 250px;
+	background:linear-gradient(-45deg, red, orange);
+	animation:.1s flame infinite;
+	border-radius: 10px 10px 0px 10px;
+	position:relative;
+	box-shadow:0px 0px 70px 5px #700;
+    z-index: -1;
+}
+

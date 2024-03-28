@@ -9,6 +9,12 @@ const chatForm = chat.querySelector(".chat__form")
 const chatInput = chat.querySelector(".chat__input")
 const chatMessages = chat.querySelector(".chat__messages")
 
+// menu elements
+const menuButton =  chatForm.querySelector(".button")
+const menu = document.querySelector(".menu")
+const menu_fire = document.querySelector(".menu_buttons")
+
+
 const colors = [
     "cadetblue",
     "darkgoldenrod",
@@ -22,10 +28,24 @@ const user = { id: "", name: "", color: "" }
 
 let websocket
 
+effect = "none"
+
 const createMessageSelfElement = (content) => {
     const div = document.createElement("div")
 
-    div.classList.add("message--self")
+    switch(effect) {
+        case "flame" :
+
+            div.classList.add("flame")
+            effect = "none"
+          break;
+
+        default:
+
+            div.classList.add("message--self")
+    }
+
+    
     div.innerHTML = content
 
     return div
@@ -63,10 +83,14 @@ const scrollScreen = () => {
 const processMessage = ({ data }) => {
     const { userId, userName, userColor, content } = JSON.parse(data)
 
+    var msg = content
+
+
+
     const message =
         userId == user.id
-            ? createMessageSelfElement(content)
-            : createMessageOtherElement(content, userName, userColor)
+            ? createMessageSelfElement(msg)
+            : createMessageOtherElement(msg, userName, userColor)
 
     chatMessages.appendChild(message)
 
@@ -89,18 +113,48 @@ const handleLogin = (event) => {
 
 const sendMessage = (event) => {
     event.preventDefault()
+    chatInput.value = chatInput.value.trim()
+    if (chatInput.value == ""){
 
-    const message = {
-        userId: user.id,
-        userName: user.name,
-        userColor: user.color,
-        content: chatInput.value
+    }else{
+
+       
+
+        const message = {
+            userId: user.id,
+            userName: user.name,
+            userColor: user.color,
+            content: chatInput.value
+        }
+
+        websocket.send(JSON.stringify(message))
+
+        chatInput.value = ""
+
     }
+}
 
-    websocket.send(JSON.stringify(message))
+const openMenu = (event) => {
+    event.preventDefault()
+    if (menu.style.display == "none"){
 
-    chatInput.value = ""
+        menu.style.display = "flex"
+
+    }else{
+        menu.style.display = "none"
+    }
+       
+}
+
+const fire_messagem = (event) => {
+    event.preventDefault()
+    effect = "flame"
+
+    addEventListener("click", sendMessage)
 }
 
 loginForm.addEventListener("submit", handleLogin)
 chatForm.addEventListener("submit", sendMessage)
+menuButton.addEventListener("click", openMenu)
+menu_fire.addEventListener("click", fire_messagem)
+
